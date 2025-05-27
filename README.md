@@ -1,89 +1,127 @@
-# AI2-Project
-Startups Success prediction
+# Startup Success Prediction API
 
-# 📊 Startup Success Prediction Using Machine Learning
+![Python Version](https://img.shields.io/badge/python-3.8%2B-blue)
+![License](https://img.shields.io/badge/license-MIT-green)
+![API Status](https://img.shields.io/endpoint?url=https://shields.io/endpoint)
 
-## 📌 Project Overview
-This project leverages machine learning to predict the success of startups based on various features such as funding, milestones, relationships, and more. By analyzing industry trends and company attributes, the model determines whether a startup is likely to succeed (acquired) or fail (closed). The ultimate goal is to assist investors and entrepreneurs in making informed decisions about startup investments.
+A machine learning API for predicting startup success using FastAPI, with React and Node.js frontend integration.
 
----
+## Table of Contents
+- [Features](#features)
+- [Installation](#installation)
+- [API Documentation](#api-documentation)
+- [Local Deployment](#local-deployment)
+- [Testing](#testing)
+- [Contributing](#contributing)
+- [License](#license)
 
-## 📂 Dataset Overview
+## Features
+- Startup success prediction model (Acquired/Closed)
+- REST API endpoints with JSON responses
+- CORS configured for local development
+- Automatic PDF documentation generation
+- Sample test scripts for Python and Node.js
 
-### **Context**
-Startups are new businesses designed to scale and grow rapidly. However, they face significant uncertainty and a high failure rate. Predicting a startup's success can provide valuable insights for stakeholders.
+## Installation
 
-### **Objective**
-The objective is to classify startups into two categories: 
-- **Acquired (Success)**
-- **Closed (Failure)**
+### Backend Setup
+```bash
+git clone https://github.com/yourusername/startup-success-prediction.git
+cd startup-success-prediction
 
-### **Key Features in the Dataset**
-- `age_first_funding_year`: Time since the first funding.
-- `age_last_funding_year`: Time since the last funding.
-- `relationships`: Number of key relationships the startup has.
-- `funding_rounds`: Number of funding rounds completed.
-- `funding_total_usd`: Total funding received in USD.
-- `milestones`: Number of significant achievements.
-- `state`: Location of the startup.
-- `industry_type`: The industry the startup operates in.
-- `has_VC`, `has_angel`: Indicates the type of investors.
-- `status`: The target variable (`acquired` = success, `closed` = failure).
+# Create virtual environment (recommended)
+python -m venv venv
+source venv/bin/activate  # Linux/MacOS
+venv\Scripts\activate  # Windows
 
----
+# Install dependencies
+pip install -r requirements.txt
+```
 
-## 🛠️ Feature Engineering
+### Frontend Setup
+```bash
+cd frontend
+npm install
+```
 
-The following preprocessing steps were applied to the dataset:
-1. **Data Cleaning**: 
-   - Removed irrelevant or redundant columns.
-   - Dropped outliers in `avg_participants` using a statistical threshold.
-2. **Categorical Encoding**: 
-   - Used `LabelEncoder` to convert categorical variables into numeric format.
-3. **Feature Selection**: 
-   - Retained only relevant features for the model to ensure better performance.
+## API Documentation
 
----
+Generate PDF documentation:
+```bash
+python generate_docs.py
+```
 
-## 🤖 Machine Learning Models
+Key endpoints:
+| Endpoint | Method | Description |
+|----------|--------|-------------|
+| `/predict` | POST | Make prediction with startup data |
+| `/categories` | GET | Get category mappings |
 
-### Models Used:
-1. **Logistic Regression**:
-   - A simple yet effective model for binary classification.
-   - Results:
-     - Accuracy: `68.64%`
-     - Precision: `61.36%`
-     - Recall: `34.18%`
-     - F1-Score: `43.90%`
+Request sample:
+```json
+{
+    "state_code": 0,
+    "category_code": 8,
+    "age_first_funding_year": 2.0,
+    "funding_total_usd": 15000000,
+    ...
+}
+```
 
-2. **Decision Tree Classifier**:
-   - A more complex model with higher flexibility.
-   - Results:
-     - Accuracy: `100%`
-     - Precision: `100%`
-     - Recall: `100%`
-     - F1-Score: `100%`
+## Local Deployment
 
-### Single Example Prediction:
-The model predicts whether a hypothetical startup (based on given input features) will succeed or fail. In the provided example, the result was **Failure (Closed)**.
+### Run Services
+```bash
+# Start API (backend)
+uvicorn main:app --reload --port 8000
 
----
+# Start React frontend (separate terminal)
+cd frontend && npm start
 
-## 📈 Results & Insights
+# Start Node.js service (separate terminal)
+node server.js
+```
 
-- **Logistic Regression**: 
-  - Lower accuracy and recall indicate it struggles with the dataset's complexity.
-- **Decision Tree**:
-  - Achieved perfect metrics, though this might suggest overfitting on the training data.
+### Access Points
+| Service | URL |
+|---------|-----|
+| API Docs | http://localhost:8000/docs |
+| React App | http://localhost:3000 |
+| Node Service | http://localhost:8080 |
 
----
+## Testing
 
-## 💡 Applications
+Python test:
+```bash
+python test_api.py
+```
 
-### Real-World Use Cases:
-1. **For Investors**:
-   - Identify high-potential startups for investment.
-2. **For Entrepreneurs**:
-   - Assess factors contributing to success and adapt strategies accordingly.
-3. **For Analysts**:
-   - Provide data-driven insights into startup ecosystems.
+Node.js test:
+```bash
+node test_api.js
+```
+
+## CORS Configuration
+Pre-configured origins:
+- http://localhost:3000
+- http://localhost:8080
+- http://localhost:4200
+
+To modify CORS settings, edit `main.py`:
+```python
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[...],
+    ...
+)
+```
+
+## Contributing
+1. Fork the repository
+2. Create feature branch: `git checkout -b feature/new-feature`
+3. Commit changes: `git commit -m 'Add new feature'`
+4. Push to branch: `git push origin feature/new-feature`
+5. Open pull request
+
+## License
+This project is licensed under the MIT License - see [LICENSE](LICENSE) file for details.
