@@ -103,6 +103,26 @@ def get_categories():
         }
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Error loading categories: {str(e)}")
+
+
+from fastapi.responses import FileResponse
+import os
+from generate_docs import create_api_documentation  # Proper import
+@app.get("/docs", response_class=FileResponse)
+async def get_api_documentation():
+    """Serve generated PDF documentation"""
+    docs_path = "docs/API_Documentation.pdf"
+    
+    # Generate PDF if it doesn't exist or is outdated
+    if not os.path.exists(docs_path):
+        generated_path = create_api_documentation()
+        os.rename(generated_path, docs_path)  # Maintain consistent filename
+    
+    return FileResponse(
+        path=docs_path,
+        media_type='application/pdf',
+        filename="API_Documentation.pdf"
+    )
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, host="127.0.0.1", port=8000)
