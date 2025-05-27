@@ -35,8 +35,8 @@ A machine learning API for predicting startup success using FastAPI, with React 
 
 ```bash
 # Clone repository
-git clone https://github.com/yourusername/startup-success-prediction.git
-cd startup-success-prediction
+git clone https://github.com/BelalEbrahim/AI2-Project.git
+cd AI2-Project
 
 # Setup and launch (Linux/macOS)
 python -m venv venv && source venv/bin/activate
@@ -48,8 +48,8 @@ uvicorn main:app --reload
 
 ### Backend Setup
 ```bash
-git clone https://github.com/yourusername/startup-success-prediction.git
-cd startup-success-prediction
+git clone https://github.com/BelalEbrahim/AI2-Project.git
+cd AI2-Project
 
 # Create virtual environment
 python -m venv venv
