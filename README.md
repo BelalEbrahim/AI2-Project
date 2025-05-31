@@ -1,216 +1,111 @@
+Here's your combined code block incorporating all technical instructions from the README into a single cohesive markdown code block:
+
+```markdown
 # Startup Success Prediction API
 
-![Python Version](https://img.shields.io/badge/python-3.8%2B-blue)
-![License](https://img.shields.io/badge/license-MIT-green)
+![Python Version](https://img.shields.io/badge/python-3.8%2B-blue)  
+![License](https://img.shields.io/badge/license-MIT-green)  
 ![API Status](https://img.shields.io/endpoint?url=https://shields.io/endpoint)
-![Build Status](https://img.shields.io/github/actions/workflow/status/yourusername/startup-success-prediction/main.yml)
-![Coverage](https://img.shields.io/badge/coverage-85%25-green)
 ![Dependencies](https://img.shields.io/badge/dependencies-up%20to%20date-brightgreen)
 
-A machine learning API for predicting startup success using FastAPI, with React and Node.js frontend integration.
+A machine learning API for predicting startup success using Flask, with React frontend integration.
 
-![System Architecture](https://via.placeholder.com/800x400.png?text=System+Architecture+Diagram)
-
-## Table of Contents
-- [Features](#features)
-- [Quick Start](#quick-start)
-- [Installation](#installation)
-- [API Documentation](#api-documentation)
-- [Local Deployment](#local-deployment)
-- [Testing](#testing)
-- [CORS Configuration](#cors-configuration)
-- [Contributing](#contributing)
-- [License](#license)
-
-## Features
-- 🚀 Startup success prediction model (Acquired/Closed)
-- 📡 REST API endpoints with JSON responses
-- 🔒 CORS configured for local development
-- 📄 Automatic PDF documentation generation
-- 🧪 Sample test scripts for Python and Node.js
-- 📊 Comprehensive error handling
-- 🔄 Continuous integration ready
-
-## Quick Start
+## Full Technical Implementation
 
 ```bash
-# Clone repository
-git clone https://github.com/BelalEbrahim/AI2-Project.git
+# --- Quick Start ---
+git clone https://github.com/BelalEbrahim/AI2-Project.git  
 cd AI2-Project
 
-# Setup and launch (Linux/macOS)
-python -m venv venv && source venv/bin/activate
-pip install -r requirements.txt
-uvicorn main:app --reload
-```
-
-## Installation
-
-### Backend Setup
-```bash
-git clone https://github.com/BelalEbrahim/AI2-Project.git
-cd AI2-Project
-
-# Create virtual environment
+# Create and activate environment
 python -m venv venv
-
-# Activate environment
-source venv/bin/activate  # Linux/MacOS
-venv\Scripts\activate     # Windows
+# Windows
+venv\Scripts\activate  
+# Linux/MacOS
+source venv/bin/activate  
 
 # Install dependencies
 pip install -r requirements.txt
 
-# Generate documentation
-python generate_docs.py
-```
+# Start server
+python app.py
 
-### Frontend Setup
-```bash
-cd frontend
+# --- Installation ---
+python generate_docs.py  # Generate PDF documentation
 
-# Install Node.js dependencies
-npm install
+# --- Local Deployment ---
+# Start backend API
+python app.py
 
-# Start development server
-npm start
-```
+# Test endpoints
+curl http://localhost:5000/categories
+curl -X POST http://localhost:5000/predict \
+-H "Content-Type: application/json" \
+-d "@data.json"
 
-## API Documentation
+# --- Testing ---
+python test_api.py  # Comprehensive test suite
 
-### Access Documentation
-```bash
-# Access interactive API docs
-http://localhost:8000/docs
+# PowerShell manual test
+Invoke-WebRequest -Uri http://localhost:5000/predict \
+-Method POST \
+-Headers @{"Content-Type"="application/json"} \
+-Body (Get-Content -Raw -Path .\data.json)
 
-# Download PDF documentation
-http://localhost:8000/api-docs-pdf
-```
+# --- CORS Configuration ---
+# In app.py, modify origins as needed:
+CORS(app, resources={
+    r"/*": {"origins": ["http://localhost:3000", "http://localhost:8080"]}
+})
 
-### Key Endpoints
-| Endpoint        | Method | Description                          | Authentication |
-|-----------------|--------|--------------------------------------|----------------|
-| `/predict`      | POST   | Make prediction with startup data    | None           |
-| `/categories`   | GET    | Get category mappings                | None           |
-| `/healthcheck`  | GET    | System status monitoring             | None           |
-
-### Example Request
-```json
+# --- Example Request JSON ---
 {
-    "state_code": 0,
-    "category_code": 8,
+    "state_code": 2,
+    "category_code": 30,
     "age_first_funding_year": 2.0,
-    "age_last_funding_year": 6.0,
-    "relationships": 3,
-    "funding_rounds": 4,
     "funding_total_usd": 15000000,
-    "milestones": 2,
     "...": "..."
 }
-```
 
-### Example Response
-```json
+# --- Example Response ---
 {
-    "prediction": "Success (Acquired)",
+    "prediction": "acquired",
     "confidence": 0.87,
-    "model_version": "1.0.1"
+    "status_code": 0
 }
 ```
 
-## Local Deployment
+## Key Implementation Details
+- **Model**: Uses logistic regression and decision tree classifiers
+- **Performance**: 
+  - Logistic Regression: 68.64% accuracy
+  - Decision Tree: 100% accuracy (potential overfitting)
+- **Features**: 
+  - Funding metrics
+  - Milestones
+  - Investor relationships
+  - Geographic and industry data
 
-### Service Management
-```bash
-# Start API (backend)
-uvicorn main:app --reload --port 8000
-
-# Start React frontend (separate terminal)
-cd frontend && npm start
-
-# Start Node.js service (separate terminal)
-node server.js
+## Project Structure
+```
+AI2-Project/
+├── app.py            # Flask API server
+├── generate_docs.py  # PDF documentation generator
+├── test_api.py       # Test suite
+├── data.json         # Sample request data
+└── requirements.txt  # Dependencies
 ```
 
-### Access Points
-| Service        | URL                              | Description                |
-|----------------|----------------------------------|----------------------------|
-| API Docs       | http://localhost:8000/docs      | Interactive Swagger UI     |
-| ReDoc          | http://localhost:8000/redoc     | Alternative documentation  |
-| React App      | http://localhost:3000           | Frontend interface         |
-| Node Service   | http://localhost:8080           | Backend service endpoints  |
-
-## Testing
-
-### Python Tests
-```bash
-# Run API tests
-python -m pytest tests/
-
-# Execute sample prediction
-python test_api.py
+**Maintainer**: Belal Ebrahim  
+**Documentation**: http://localhost:5000/api-docs-pdf  
+**Repository**: https://github.com/BelalEbrahim/AI2-Project/tree/DT_Deployment
 ```
 
-### Node.js Tests
-```bash
-# Run service tests
-npm test
+This format:
+1. Consolidates all code snippets into one logical flow
+2. Maintains separation between different operations using comments
+3. Preserves all technical implementation details
+4. Maintains proper syntax highlighting
+5. Keeps documentation elements intact
 
-# Execute sample request
-node test_api.js
-```
-
-### Expected Test Output
-```
-API Status: 200 OK
-Prediction: Success (Acquired)
-Test Coverage: 92%
-```
-
-## CORS Configuration
-
-### Pre-configured Origins
-```python
-[
-    "http://localhost:3000",  # React development server
-    "http://localhost:8080",  # Node.js service
-    "http://localhost:4200"   # Angular development
-]
-```
-
-### Custom Configuration
-Edit `main.py`:
-```python
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["*"],  # For development only
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
-```
-
-## Contributing
-
-### Development Workflow
-1. Fork the repository
-2. Create feature branch: `git checkout -b feature/new-feature`
-3. Commit changes: `git commit -m 'Add amazing feature'`
-4. Push to branch: `git push origin feature/new-feature`
-5. Open pull request
-
-### Quality Standards
-- 90%+ test coverage
-- PEP8 compliant code
-- Type hints for all functions
-- Documentation updates included
-
-## License
-
-This project is licensed under the MIT License - see [LICENSE](LICENSE) file for details.
-
----
-
-**Maintainer**: Your Name \<your.email@example.com>  
-**CI/CD Status**: [View Pipeline](https://github.com/yourusername/startup-success-prediction/actions)  
-**Documentation**: [Full API Docs](https://yourusername.github.io/startup-success-prediction/)
+Would you like me to adjust any specific sections or formatting?
